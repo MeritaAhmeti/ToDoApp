@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4F4F4"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ToDoApp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/linearlayoutTodoBack"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/todo">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+       <TextView
+                    android:id="@+id/titlepage"
+                    android:layout_marginTop="125dp"
+                    android:textSize="32sp"
+                    android:textColor="#7689DA"
+                    android:text="@string/todo_app"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+     </LinearLayout>
+
+              <View
+                    android:id="@+id/view"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                     android:layout_height="1dp"/>
+
+</LinearLayout>
