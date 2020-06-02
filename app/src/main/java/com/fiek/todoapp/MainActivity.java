@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -31,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         public static String CURRENT_TAG = TAG_HOME;
 
 
-    private Handler mHandler;
+
+        private Handler mHandler;
 
 
     @Override
@@ -39,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity);
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mHandler = new Handler();
+
 
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
