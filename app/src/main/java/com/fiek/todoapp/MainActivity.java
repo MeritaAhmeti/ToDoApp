@@ -1,18 +1,26 @@
 package com.fiek.todoapp;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
         private NavigationView navigationView;
         private DrawerLayout drawer;
+        private Toolbar toolbar;
         private View navHeader;
 
         public static int navItemIndex = 0;
@@ -22,10 +30,21 @@ public class MainActivity extends AppCompatActivity {
         private static final String TAG_SETTINGS = "settings";
         public static String CURRENT_TAG = TAG_HOME;
 
+
+    private Handler mHandler;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        mHandler = new Handler();
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -33,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         navHeader = navigationView.getHeaderView(0);
 
         selectNavMenu();
-
-
         setUpNavigationView();
 
         if (savedInstanceState == null) {
@@ -90,5 +107,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        //Setting the actionbarToggle to drawer layout
+        drawer.setDrawerListener(actionBarDrawerToggle);
+
+        //calling sync state is necessary or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
+        
     }
-}
+
+    }
+
