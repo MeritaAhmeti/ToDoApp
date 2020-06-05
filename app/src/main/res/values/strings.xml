@@ -1,7 +1,7 @@
 <resources>
 
     <string name="todo_app">ToDo</string>
-   <string name="app_name">ToDoApp</string>
+    <string name="app_name">ToDoApp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="openDrawer">open_drawer</string>
