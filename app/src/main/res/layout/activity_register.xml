@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-
+    android:background="@drawable/background_animation_login"
     android:id="@+id/signupbackground">
 
     <RelativeLayout
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
-                android:hint="Username"
+                android:hint="@string/username_register"
                 android:imeOptions="actionNext"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -44,7 +44,7 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
-                android:hint="Password"
+                android:hint="@string/password_register"
                 android:inputType="textPassword"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -57,7 +57,7 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
-                android:hint="Confirm Password"
+                android:hint="@string/confirm_password_register"
                 android:inputType="textPassword"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/done"
-            android:text="To Do"
+            android:text="@string/to_do_register"
             android:textColor="@color/colorWhite"
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
@@ -92,8 +92,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="Register"
-
+            android:text="@string/register_register"
+            android:background="@drawable/button_white"
             android:textColor="#48F3BE" />
 
         <Button
@@ -104,8 +104,8 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="Cancel"
-
+            android:text="@string/cancel_register"
+            android:background="@drawable/button_v"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
 
