@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-
+    android:background="@drawable/background_animation_login"
     android:id="@+id/loginbackground">
 
     <RelativeLayout
@@ -14,7 +14,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             />
 
         <RelativeLayout
@@ -28,9 +27,9 @@
                 android:id="@+id/edittext_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
-                android:hint="Username"
+                android:hint="@string/username_login"
                 android:imeOptions="actionNext"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -44,7 +43,7 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
-                android:hint="Password"
+                android:hint="@string/password_login"
                 android:inputType="textPassword"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -64,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/done"
-            android:text="To Do"
+            android:text="@string/to_do_login"
             android:textColor="@color/colorWhite"
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
@@ -78,8 +77,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-
-            android:text="Sign in"
+            android:background="@drawable/button_white"
+            android:text="@string/sign_in_login"
             android:textColor="#48F3BE" />
 
         <Button
@@ -90,8 +89,8 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-
-            android:text="Sign up"
+            android:background="@drawable/button_v"
+            android:text="@string/sign_up_login"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
 

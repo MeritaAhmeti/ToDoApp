@@ -13,4 +13,9 @@
     <string name="nav_settings">Settings</string>
     <string name="nav_about_us">About Us</string>
     <string name="nothing"> Nothing </string>
+    <string name="username_login">Username</string>
+    <string name="password_login">Password</string>
+    <string name="to_do_login">To Do</string>
+    <string name="sign_in_login">Sign in</string>
+    <string name="sign_up_login">Sign up</string>
 </resources>
