@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
     android:background="@drawable/background_animation_login"
-    android:id="@+id/signupbackground">
+    android:id="@+id/signupbackground"
+    android:alpha="0.8">
 
     <RelativeLayout
         android:layout_width="match_parent"
