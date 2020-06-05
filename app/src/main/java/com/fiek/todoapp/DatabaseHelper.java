@@ -28,4 +28,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+    public long addUser(String user,String password){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username",user);
+        contentValues.put("password",password);
+        long res = DB.insert("registeruser",null,contentValues);
+        DB.close();
+        return res;
+    }
+    public boolean checkUser(String username,String password){
+        String [] columns = { COL_1 };
+        SQLiteDatabase DB = getReadableDatabase();
+        String selection = COL_2 + "=?" + " and " + COL_3 + "=?";
+        String [] selectionArgs = { username, password};
+        Cursor cursor = DB.query(TABLE_NAME,columns,selection,selectionArgs,null,null,null);
+        int count = cursor.getCount();
+        cursor.close();
+        DB.close();
+        if(count>0)
+            return true;
+        else
+            return false;
+
+    }
 }
+
