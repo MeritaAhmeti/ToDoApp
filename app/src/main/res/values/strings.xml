@@ -18,4 +18,10 @@
     <string name="to_do_login">To Do</string>
     <string name="sign_in_login">Sign in</string>
     <string name="sign_up_login">Sign up</string>
+    <string name="username_register">Username</string>
+    <string name="password_register">Password</string>
+    <string name="confirm_password_register">Confirm Password</string>
+    <string name="to_do_register">To Do</string>
+    <string name="register_register">Register</string>
+    <string name="cancel_register">Cancel</string>
 </resources>

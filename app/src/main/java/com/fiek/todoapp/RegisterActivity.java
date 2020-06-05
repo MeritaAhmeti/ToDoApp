@@ -19,11 +19,18 @@ public class RegisterActivity extends AppCompatActivity {
     Button mButtonRegister;
     Button mButtonLogin;
 
+    ConstraintLayout signupbackground;
+    AnimationDrawable animationDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        signupbackground = (ConstraintLayout) findViewById(R.id.signupbackground);
+        animationDrawable = (AnimationDrawable) signupbackground.getBackground();
+        animationDrawable.setEnterFadeDuration(4500);
+        animationDrawable.setExitFadeDuration(4500);
+        animationDrawable.start();
 
 
 
