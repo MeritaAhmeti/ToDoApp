@@ -106,9 +106,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         mHandler = new Handler();
-
-
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);

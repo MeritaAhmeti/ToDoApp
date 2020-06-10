@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/titledoes"
+                android:id="@+id/titletodo"
                 android:inputType="text"
                 android:paddingLeft="12dp"
                 android:textColorHint="#B5B5B5"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/descdoes"
+                android:id="@+id/desctodo"
                 android:inputType="text"
                 android:background="@drawable/bginputaddtask"
                 android:paddingLeft="12dp"
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/datedoes"
+                android:id="@+id/datetodo"
                 android:inputType="text"
                 android:background="@drawable/bginputaddtask"
                 android:paddingLeft="12dp"
