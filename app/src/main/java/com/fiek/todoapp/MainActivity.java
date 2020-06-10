@@ -18,12 +18,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+        DatabaseReference reference;
+        RecyclerView newtodo;
+        ArrayList<MyToDo> list;
+        ToDoAdapter toDoAdapter;
 
 
 
@@ -49,6 +63,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity);
 
+        //puna e te dhenave
+        newtodo= findViewById(R.id.newtodo);
+        newtodo.setLayoutManager(new LinearLayoutManager(this));
+        list = new ArrayList<MyToDo>();
+
+        //me marr te dhenat prej firebase
+        reference= FirebaseDatabase.getInstance().getReference().child("ToDoApp");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //kodi per rimarrjen e te dhenave  dhe zevendesimin e layout
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
+                {
+                    MyToDo p= dataSnapshot1.getValue(MyToDo.class);
+                    list.add(p);
+                }
+                toDoAdapter = new ToDoAdapter( MainActivity.this,list);
+                newtodo.setAdapter(toDoAdapter);
+                toDoAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                Toast.makeText(MainActivity.this, "No Data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,10 +101,8 @@ public class MainActivity extends AppCompatActivity {
         btnaddnew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-//                Intent a = new Intent(MainActivity.this,NewTaskAct.class);
-//                startActivity(a);
+                Intent a = new Intent(MainActivity.this,AddTask.class);
+                startActivity(a);
             }
         });
 
