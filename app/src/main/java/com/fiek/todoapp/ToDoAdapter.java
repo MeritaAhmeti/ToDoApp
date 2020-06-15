@@ -35,10 +35,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
         myViewHolder.desctodo.setText(myTodo.get(i).getDesctodo());
         myViewHolder.datetodo.setText(myTodo.get(i).getDatetodo());
 
-        final String getTitleDoes = myTodo.get(i).getTitletodo();
-        final String getDescDoes = myTodo.get(i).getDesctodo();
-        final String getDateDoes = myTodo.get(i).getDatetodo();
-        final String getKeyDoes = myTodo.get(i).getKeytodo();
+        final String getTitletodo = myTodo.get(i).getTitletodo();
+        final String getDesctodo = myTodo.get(i).getDesctodo();
+        final String getDatetodo = myTodo.get(i).getDatetodo();
+        final String getKeytodo = myTodo.get(i).getKeytodo();
 
 //        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -67,6 +67,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
             titletodo = (TextView) itemView.findViewById(R.id.titletodo);
             desctodo = (TextView) itemView.findViewById(R.id.desctodo);
             datetodo = (TextView) itemView.findViewById(R.id.datetodo);
+
         }
     }
 

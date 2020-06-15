@@ -49,7 +49,7 @@ public class AddTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // insert data to database
-                reference = FirebaseDatabase.getInstance().getReference().child("BoxToDo").
+                reference = FirebaseDatabase.getInstance().getReference().child("ToDoapp").
                         child("Todo" + todoNum);
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -58,7 +58,7 @@ public class AddTask extends AppCompatActivity {
                         dataSnapshot.getRef().child("titletodo").setValue(titletodo.getText().toString());
                         dataSnapshot.getRef().child("desctodo").setValue(desctodo.getText().toString());
                         dataSnapshot.getRef().child("datetodo").setValue(datetodo.getText().toString());
-                        dataSnapshot.getRef().child("keytodo").setValue(keytodo);
+                        //dataSnapshot.getRef().child("keytodo").setValue(keytodo);
 
                         Intent a = new Intent(AddTask.this,MainActivity.class);
                         startActivity(a);
