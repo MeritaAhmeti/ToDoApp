@@ -46,8 +46,8 @@ public class AddTask extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnCancel);
 
         btnSaveTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
                 // insert data to databasea
                 reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
                         child("Todo" + todoNum);
@@ -58,7 +58,7 @@ public class AddTask extends AppCompatActivity {
                         dataSnapshot.getRef().child("titletodo").setValue(titletodo.getText().toString());
                         dataSnapshot.getRef().child("desctodo").setValue(desctodo.getText().toString());
                         dataSnapshot.getRef().child("datetodo").setValue(datetodo.getText().toString());
-                        //dataSnapshot.getRef().child("keytodo").setValue(keytodo);
+                        dataSnapshot.getRef().child("keytodo").setValue(keytodo);
 
                         Intent a = new Intent(AddTask.this,MainActivity.class);
                         startActivity(a);
@@ -71,8 +71,14 @@ public class AddTask extends AppCompatActivity {
                     }
                 });
             }
+
         });
-
-
+          btnCancel.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent a = new Intent(AddTask.this,MainActivity.class);
+                  startActivity(a);
+              }
+          });
     }
 }

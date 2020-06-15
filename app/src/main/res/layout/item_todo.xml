@@ -17,7 +17,7 @@
             android:id="@+id/titletodo"
             android:layout_marginTop="19dp"
             android:textSize="22sp"
-            android:text="Title ToDo"
+            android:text="@string/title_todo_item"
             android:textColor="#000C5D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -26,7 +26,7 @@
             android:id="@+id/desctodo"
             android:textSize="18sp"
             android:textColor="#ADADAD"
-            android:text="Description ToDo"
+            android:text="@string/description_todo_item"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -42,7 +42,7 @@
             android:id="@+id/datetodo"
             android:textSize="18sp"
             android:textColor="#F63EA5"
-            android:text="Date ToDo"
+            android:text="@string/date_todo_item"
             android:layout_marginTop="8dp"
             android:gravity="right"
             android:layout_width="match_parent"

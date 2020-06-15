@@ -25,4 +25,26 @@
     <string name="register_register">Register</string>
     <string name="cancel_register">Cancel</string>
     <string name="share_tab">Share</string>
+    <string name="create_new_todo_atask">Create new ToDo</string>
+    <string name="add_title_atask">Add Title</string>
+    <string name="what_you_do_atask">What You Do?</string>
+    <string name="description_atask">Description</string>
+    <string name="how_to_atask">How to?</string>
+    <string name="timeline_atask">Timeline</string>
+    <string name="when_will_atask">When will?</string>
+    <string name="create_now_atask">Create Now</string>
+    <string name="cancel_atask">Cancel</string>
+    <string name="edit_todo_etask">Edit ToDo</string>
+    <string name="add_title_etask">Add Title</string>
+    <string name="what_you_do_etask">What You Do?</string>
+    <string name="description_etask">Description</string>
+    <string name="how_to_etask">How to?</string>
+    <string name="timeline_etask">Timeline</string>
+    <string name="when_will_etask">When will?</string>
+    <string name="save_update_etask">Save Update</string>
+    <string name="delete_etask">Delete</string>
+    <string name="title_todo_item">Title ToDo</string>
+    <string name="description_todo_item">Description ToDo</string>
+    <string name="date_todo_item">Date ToDo</string>
+
 </resources>
