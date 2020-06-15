@@ -34,24 +34,24 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
         myViewHolder.titletodo.setText(myTodo.get(i).getTitletodo());
         myViewHolder.desctodo.setText(myTodo.get(i).getDesctodo());
         myViewHolder.datetodo.setText(myTodo.get(i).getDatetodo());
-      //  myViewHolder.keytodo.setText(myTodo.get(i).getKeytodo());
 
-        //final String getTitletodo = myTodo.get(i).getTitletodo();
-    //    final String getDesctodo = myTodo.get(i).getDesctodo();
-    //    final String getDatetodo = myTodo.get(i).getDatetodo();
-     //   final String getKeytodo = myTodo.get(i).getKeytodo();
+        final String getTitletodo = myTodo.get(i).getTitletodo();
+        final String getDesctodo = myTodo.get(i).getDesctodo();
+        final String getDatetodo = myTodo.get(i).getDatetodo();
+        final String getKeytodo = myTodo.get(i).getKeytodo();
 
-      //myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-        //        aa.putExtra("titledoes", getTitleDoes);
-         //       aa.putExtra("descdoes", getDescDoes);
-         //       aa.putExtra("datedoes", getDateDoes);
-          //      aa.putExtra("keydoes", getKeyDoes);
-          //      context.startActivity(aa);
-           // }
-       // });
-  }
+//        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent aa = new Intent(context,EditTaskDesk.class);
+//                aa.putExtra("titledoes", getTitleDoes);
+//                aa.putExtra("descdoes", getDescDoes);
+//                aa.putExtra("datedoes", getDateDoes);
+//                aa.putExtra("keydoes", getKeyDoes);
+//                context.startActivity(aa);
+//            }
+//        });
+    }
 
     @Override
     public int getItemCount() {
@@ -67,7 +67,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
             titletodo = (TextView) itemView.findViewById(R.id.titletodo);
             desctodo = (TextView) itemView.findViewById(R.id.desctodo);
             datetodo = (TextView) itemView.findViewById(R.id.datetodo);
-           // keytodo = (TextView) itemView.findViewById(R.id.keytodo);
+
         }
     }
 
