@@ -48,8 +48,8 @@ public class AddTask extends AppCompatActivity {
         btnSaveTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // insert data to database
-                reference = FirebaseDatabase.getInstance().getReference().child("ToDoapp").
+                // insert data to databasea
+                reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
                         child("Todo" + todoNum);
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
