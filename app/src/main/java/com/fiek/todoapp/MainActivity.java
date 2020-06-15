@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView newtodo;
         ArrayList<MyToDo> list;
         ToDoAdapter toDoAdapter;
+       // TextView titlepage;
 
 
 
@@ -53,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         private static final String TAG_SETTINGS = "settings";
         public static String CURRENT_TAG = TAG_HOME;
 
-
-
         private Handler mHandler;
 
 
@@ -63,10 +63,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity);
 
+       // titlepage = findViewById(R.id.titlepage);
+        FloatingActionButton  btnAddNew = findViewById(R.id.btnaddnew);
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(MainActivity.this,AddTask.class);
+                startActivity(a);
+            }
+        });
+
         //puna e te dhenave
         newtodo= findViewById(R.id.newtodo);
         newtodo.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<MyToDo>();
+
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        newtodo.setLayoutManager(layoutManager);
 
         //me marr te dhenat prej firebase
         reference= FirebaseDatabase.getInstance().getReference().child("ToDoApp");
@@ -78,17 +91,18 @@ public class MainActivity extends AppCompatActivity {
                 {
                     MyToDo p= dataSnapshot1.getValue(MyToDo.class);
                     list.add(p);
+
                 }
                 toDoAdapter = new ToDoAdapter( MainActivity.this,list);
                 newtodo.setAdapter(toDoAdapter);
                 toDoAdapter.notifyDataSetChanged();
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 Toast.makeText(MainActivity.this, "No Data", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -97,14 +111,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        FloatingActionButton btnaddnew = findViewById(R.id.btnaddnew);
-        btnaddnew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent a = new Intent(MainActivity.this,AddTask.class);
-                startActivity(a);
-            }
-        });
+
 
 
         mHandler = new Handler();
