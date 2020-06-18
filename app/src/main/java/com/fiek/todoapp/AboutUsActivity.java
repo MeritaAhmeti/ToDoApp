@@ -17,5 +17,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
         fetchData process = new fetchData();
         process.execute();
+
+
     }
 }
