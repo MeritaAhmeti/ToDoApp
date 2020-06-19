@@ -75,6 +75,82 @@ public class RateFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_rate, container, false);
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView mlaunchCount =  view.findViewById(R.id.launchCount);
+        AppPreferences.getInstance(getContext()).incrementLaunchCount();
+        mlaunchCount.setText(getString(R.string.app_message,
+                AppPreferences.getInstance(getContext()).getLaunchCount()));
+        showRateAppDialogIfNeeded();
+
+    }
+    private void showRateAppDialogIfNeeded() {
+
+//        boolean bool = AppPreferences.getInstance(getContext()).getAppRate();
+        int i = AppPreferences.getInstance(getContext()).getLaunchCount();
+        if ( (i > 2)) {
+            createAppRatingDialog(getString(R.string.rate_app_title), getString(R.string.rate_app_message)).show();
+        }
+
+
+    }
+
+    private AlertDialog createAppRatingDialog(String rateAppTitle, String rateAppMessage) {
+        AlertDialog dialog = new AlertDialog.Builder(getContext()).setPositiveButton(getString(R.string.dialog_app_rate), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                openAppInPlayStore(RateFragment.this);
+                AppPreferences.getInstance(RateFragment.this.getContext()).setAppRate(false);
+                AppPreferences.getInstance(RateFragment.this.getContext()).setAppRate(false);
+            }
+        }).setNegativeButton(getString(R.string.dialog_your_feedback), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                openFeedback(RateFragment.this);
+                AppPreferences.getInstance(RateFragment.this.getContext()).setAppRate(false);
+            }
+        }).setNeutralButton(getString(R.string.dialog_ask_later), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                paramAnonymousDialogInterface.dismiss();
+                AppPreferences.getInstance(RateFragment.this.getContext()).resetLaunchCount();
+//
+            }
+        }).setMessage(rateAppMessage).setTitle(rateAppTitle).create();
+
+
+
+        return dialog;
+
+
+
+
+    }
+
+    public static void openAppInPlayStore(RateFragment paramContext) {
+        paramContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/")));
+
+    }
+
+    public static void openFeedback(RateFragment paramContext) {
+        Intent localIntent = new Intent(Intent.ACTION_SEND);
+        localIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"morinaelsa01@gmail.com", "meritaahmeti1998@gmail.com"});
+        localIntent.putExtra(Intent.EXTRA_CC, "");
+        String str = null;
+        try {
+            str = paramContext.getActivity().getPackageManager().getPackageInfo(paramContext.getActivity().getPackageName(), 0).versionName;
+            localIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Your Android App");
+            localIntent.putExtra(Intent.EXTRA_TEXT, "\n\n----------------------------------\n Device OS: Android \n Device OS version: " +
+                    Build.VERSION.RELEASE + "\n App Version: " + str + "\n Device Brand: " + Build.BRAND +
+                    "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER);
+            localIntent.setType("message/rfc822");
+            paramContext.startActivity(Intent.createChooser(localIntent, "Choose an Email client :"));
+
+
+        } catch (Exception e) {
+            Log.d("OpenFeedback", e.getMessage());
+        }
+
+    }
 
 
 
