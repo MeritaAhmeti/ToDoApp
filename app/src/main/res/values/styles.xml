@@ -15,6 +15,11 @@
 
     <style name="AppTheme.PopupOverlay">toolbar</style>
 
+    <style name="MyCheckBox" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">#FFFFFF</item>   <!-- normal border color change as you wish -->
+        <item name="colorControlActivated">#FFFFFA</item> <!-- activated color change as you wish -->
+        <item name="android:textColor">#FFFFFF</item> <!-- checkbox text color -->
+    </style>
 
 
 </resources>

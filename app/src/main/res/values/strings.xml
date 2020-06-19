@@ -46,7 +46,10 @@
     <string name="map_nav">Map</string>
     <string name="rate_this_app_nav">Rate this app</string>
 
-
+    <!--    SharedPreferences-->
+    <string name="checkbox">com.fiek.todoapp.checkbox</string>
+    <string name="username">com.fiek.todoapp.username</string>
+    <string name="password">com.fiek.todoapp.password</string>
 
 
     <string name="home">Home</string>
