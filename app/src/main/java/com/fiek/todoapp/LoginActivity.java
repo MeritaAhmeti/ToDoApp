@@ -1,5 +1,4 @@
 package com.fiek.todoapp;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
