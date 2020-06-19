@@ -50,6 +50,14 @@
                 android:textColorHint="@color/colorWhite"
                 android:textSize="17sp" />
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edittext_password"
+                android:layout_marginTop="20dp"
+                android:theme="@style/MyCheckBox"
+                android:text="Remember my login information" />
 
         </RelativeLayout>
 
