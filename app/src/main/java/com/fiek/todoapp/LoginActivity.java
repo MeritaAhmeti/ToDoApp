@@ -63,4 +63,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void checkSharedPreferences(){
+        String checkbox = mPreferences.getString(getString(R.string.checkbox), "False");
+        String username = mPreferences.getString(getString(R.string.username), "");
+        String password = mPreferences.getString(getString(R.string.password), "");
+
+        mTextUsername.setText(username);
+        mTextPassword.setText(password);
+
+        if (checkbox.equals("True")){
+            mcheckBox.setChecked(true);
+        }else{
+            mcheckBox.setChecked(false);
+        }
+    }
 }
