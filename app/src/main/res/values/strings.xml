@@ -69,4 +69,5 @@
         <item>Rate this app</item>
     </string-array>
 
+    <string name="google_map_api">AIzaSyAhg1CFmpYm8YkOClWbKDpAXC82upZrf5A</string>
 </resources>
