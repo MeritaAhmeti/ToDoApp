@@ -1,5 +1,6 @@
 package com.fiek.todoapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,11 @@ import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +45,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap map;
     private ClusterManager<MyItem>clusterManager;
     private List<MyItem> items = new ArrayList<>();
+
+
 
     public MapFragment() {
         // Required empty public constructor
@@ -93,19 +100,37 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map=googleMap;
-        LatLng latitudeLongitude = new LatLng(42.674598,21.203087);
         clusterManager = new ClusterManager<MyItem>(getContext(),map);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(42.5623091,20.341632),6));
         map.setOnCameraIdleListener(clusterManager);
         map.setOnMarkerClickListener(clusterManager);
+        addItems();
+        clusterManager.cluster();
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latitudeLongitude,15));
-        map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                items.add(new MyItem(latLng));
-                clusterManager.addItems(items);
-                clusterManager.cluster();
-            }
-        });
+
+
+    }
+    private void addItems() {
+
+                clusterManager.addItem(new MyItem(42.675487, 21.210694, "Parku i Germise", "Prishtine"));
+                clusterManager.addItem(new MyItem(42.663345, 21.164441, "Teatri", "Prishtine"));
+                clusterManager.addItem(new MyItem(42.661936, 21.161777, "KinoABC", "Prishtine"));
+                clusterManager.addItem(new MyItem(42.522513, 21.123540, "Parku i Qytetit", "Prishtine"));
+                clusterManager.addItem(new MyItem(42.648687, 21.167176, "Universtiteti i Prishtines", "Prishtine"));
+                clusterManager.addItem(new MyItem(42.654150, 21.153227 , " Bulevardi Bill Clinton", "Prishtine"));
+                clusterManager.addItem(new MyItem(42.645686, 21.158185, "Stadiumi Futbollistik KF \"Ramiz Sadiku\"", "Prishtine"));
+                clusterManager.addItem(new MyItem(42.209726,20.7433946, "Kalaja", "Prizren"));
+                clusterManager.addItem(new MyItem(42.2113559,20.7415903, "Lidhja", "Prizren"));
+                clusterManager.addItem(new MyItem(42.2176256,20.6034969, "Komuna", "Prizren"));
+                clusterManager.addItem(new MyItem(42.2090193,20.7318047 , "Shadervani", "Prizren"));
+                clusterManager.addItem(new MyItem(42.6938779,20.156527, "Gryka e Rugoves", "Peje"));
+                clusterManager.addItem(new MyItem(42.5240403,20.5981099, "Ujevara e Mirushes", "Malisheve"));
+                clusterManager.addItem(new MyItem(42.6234183,20.1857219, "National Park \"Bjeshkët e Nemuna\"", "Peje,Gjakove"));
+                clusterManager.addItem(new MyItem(42.7428689,20.0338988, "Boge", "Boge"));
+                clusterManager.addItem(new MyItem(42.2770685,21.5368789 , "Kitke", "Kamenice"));
+                clusterManager.addItem(new MyItem(42.5293742,21.4635289, "Vali Ranch", "Perlepnice"));
+                clusterManager.addItem(new MyItem(42.8895444,20.8605086  , "Trepça ", "Mitrovice"));
+
+
     }
 }
