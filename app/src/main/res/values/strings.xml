@@ -71,4 +71,5 @@
 
     <string name="google_map_api">AIzaSyDiieB5dYR2HdadJTbTaQmV0fC-vyBDKoM</string>
     <string name="notify_atask">Notify</string>
+    <string name="notify_etask">Notify</string>
 </resources>
