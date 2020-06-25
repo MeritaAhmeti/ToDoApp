@@ -4,18 +4,20 @@
     android:layout_width="match_parent"
     android:background="@drawable/bgitemtodo"
     android:orientation="horizontal"
-    android:layout_marginBottom="20dp"
-    android:layout_height="100dp">
+    android:layout_marginBottom="@dimen/d_20dp"
+    android:layout_height="@dimen/d_100dp"
+     >
 
     <LinearLayout
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="@dimen/d_16dp"
         android:orientation="vertical"
-        android:layout_width="220dp"
+        android:padding="@dimen/d_10dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/titletodo"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="@dimen/d_10dp"
             android:textSize="22sp"
             android:text="@string/title_todo_item"
             android:textColor="#000C5D"
@@ -27,15 +29,17 @@
             android:textSize="18sp"
             android:textColor="#ADADAD"
             android:text="@string/description_todo_item"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/d_8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_width="125dp"
+        android:layout_marginTop="@dimen/d_30dp"
+        android:layout_marginRight="@dimen/d_15dp"
+        android:padding="@dimen/d_10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -43,7 +47,7 @@
             android:textSize="18sp"
             android:textColor="#F63EA5"
             android:text="@string/date_todo_item"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/d_8dp"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
