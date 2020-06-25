@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
+    private static final String TAG_CONTACT = "contact";
     private static final String TAG_MAP = "map";
     private static final String TAG_RATE = "rate";
     public static String CURRENT_TAG = TAG_HOME;
@@ -158,10 +159,14 @@ public class MainActivity extends AppCompatActivity {
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
             case 1:
+                // home
+                ContactFragment contactFragment = new ContactFragment();
+                return contactFragment;
+            case 2:
                 // photos
                 MapFragment mapFragment = new MapFragment();
                 return mapFragment;
-            case 2:
+            case 3:
                 // photos
                 RateFragment rateFragment = new RateFragment();
                 return rateFragment;
@@ -194,12 +199,16 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
-                    case R.id.nav_map:
+                    case R.id.nav_contact:
                         navItemIndex = 1;
+                        CURRENT_TAG = TAG_CONTACT;
+                        break;
+                    case R.id.nav_map:
+                        navItemIndex = 2;
                         CURRENT_TAG = TAG_MAP;
                         break;
                     case R.id.nav_rate:
-                        navItemIndex = 2;
+                        navItemIndex = 3;
                         CURRENT_TAG = TAG_RATE;
                         break;
 
