@@ -9,6 +9,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,10 +18,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity {
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[a-zA-Z])" +      //any letter
+                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$");
     private static final String TAG = "MainActivity";
 
-    EditText mTextUsername;
+    EditText mTextEmail;
     EditText mTextPassword;
     Button mButtonLogin;
     Button mButtonSignup;
@@ -45,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable.start();
 
         DB = new DatabaseHelper(this);
-        mTextUsername = (EditText)findViewById(R.id.edittext_username);
+        mTextEmail = (EditText)findViewById(R.id.edittext_email);
         mTextPassword = (EditText)findViewById(R.id.edittext_password);
         mButtonLogin = (Button)findViewById(R.id.button_login);
         mButtonSignup = (Button) findViewById(R.id.btSignUp);
@@ -59,9 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         checkSharedPreferences();
 
 
-
-
-
         mButtonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +79,10 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String user = mTextUsername.getText().toString().trim();
+                if (!validateEmail() | !validatePassword()) {
+                    return;
+                }
+                String user = mTextEmail.getText().toString().trim();
                 String pwd = mTextPassword.getText().toString().trim();
                 Boolean res = DB.checkUser(user, pwd);
                 if (res == true ) {
@@ -84,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                         mEditor.putString(getString(R.string.checkbox), "True");
                         mEditor.commit();
 
-                        String username = user;
-                        mEditor.putString(getString(R.string.username), username);
+                        String email = user;
+                        mEditor.putString(getString(R.string.email_login), email);
                         mEditor.commit();
 
                         String password = pwd;
@@ -95,8 +105,8 @@ public class LoginActivity extends AppCompatActivity {
                         mEditor.putString(getString(R.string.checkbox), "False");
                         mEditor.commit();
 
-                        String username = user;
-                        mEditor.putString(getString(R.string.username), "");
+                        String email = user;
+                        mEditor.putString(getString(R.string.email_login), "");
                         mEditor.commit();
 
                         String password = pwd;
@@ -114,10 +124,10 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void checkSharedPreferences(){
         String checkbox = mPreferences.getString(getString(R.string.checkbox), "False");
-        String username = mPreferences.getString(getString(R.string.username), "");
+        String email = mPreferences.getString(getString(R.string.email_login), "");
         String password = mPreferences.getString(getString(R.string.password), "");
 
-        mTextUsername.setText(username);
+        mTextEmail.setText(email);
         mTextPassword.setText(password);
 
         if (checkbox.equals("True")){
@@ -126,4 +136,31 @@ public class LoginActivity extends AppCompatActivity {
             mcheckBox.setChecked(false);
         }
     }
+    private boolean validateEmail() {
+        String emailInput = mTextEmail.getText().toString().trim();
+        if (emailInput.isEmpty()) {
+            mTextEmail.setError("Field can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            mTextEmail.setError("Please enter a valid email address");
+            return false;
+        } else {
+            mTextEmail.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePassword() {
+        String passwordInput = mTextPassword.getText().toString().trim();
+        if (passwordInput.isEmpty()) {
+            mTextPassword.setError("Field can't be empty");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
+            mTextPassword.setError("Password too weak");
+            return false;
+        } else {
+            mTextPassword.setError(null);
+            return true;
+        }
+    }
+
 }

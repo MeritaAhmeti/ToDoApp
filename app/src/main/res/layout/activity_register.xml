@@ -22,18 +22,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/d_40dp"
-            android:layout_marginRight="@dimen/d_40dp">
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp">
 
             <EditText
-                android:id="@+id/edittext_username"
+                android:id="@+id/edittext_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
-                android:hint="@string/username_register"
+                android:hint="@string/email_register"
                 android:imeOptions="actionNext"
                 android:textColor="@color/colorWhite"
+                android:inputType="textEmailAddress"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="17sp" />
 
@@ -41,8 +42,8 @@
                 android:id="@+id/edittext_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edittext_username"
-                android:layout_marginTop="@dimen/d_30dp"
+                android:layout_below="@id/edittext_email"
+                android:layout_marginTop="30dp"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
                 android:hint="@string/password_register"
@@ -55,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edittext_password"
-                android:layout_marginTop="@dimen/d_30dp"
+                android:layout_marginTop="30dp"
                 android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
                 android:hint="@string/confirm_password_register"
@@ -67,11 +68,17 @@
 
         </RelativeLayout>
 
-
+        <ImageView
+            android:id="@+id/done"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_done_black_24dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_marginTop="@dimen/d_80dp"
+            android:layout_below="@+id/done"
             android:text="@string/to_do_register"
             android:textColor="@color/colorWhite"
             android:layout_centerHorizontal="true"
@@ -84,9 +91,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/button_cancel"
-            android:layout_marginBottom="@dimen/d_10dp"
-            android:layout_marginLeft="@dimen/d_20dp"
-            android:layout_marginRight="@dimen/d_20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="@string/register_register"
             android:background="@drawable/button_white"
             android:textColor="#48F3BE" />
@@ -96,9 +103,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/d_20dp"
-            android:layout_marginLeft="@dimen/d_20dp"
-            android:layout_marginRight="@dimen/d_20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="@string/cancel_register"
             android:background="@drawable/button_v"
             android:textColor="@color/colorWhite" />
