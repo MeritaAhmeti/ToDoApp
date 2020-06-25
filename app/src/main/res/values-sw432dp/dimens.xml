@@ -1,0 +1,31 @@
+<resources>
+	<dimen name="d_220dp">231.2dp</dimen>
+	<dimen name="d_8dp">8.4dp</dimen>
+	<dimen name="fab_margin">16.8dp</dimen>
+	<dimen name="d_80dp">84.1dp</dimen>
+	<dimen name="d_160dp">168.2dp</dimen>
+	<dimen name="d_5dp">5.3dp</dimen>
+	<dimen name="d_1dp">1.1dp</dimen>
+	<dimen name="d_10dp">10.5dp</dimen>
+	<dimen name="d_135dp">141.9dp</dimen>
+	<dimen name="activity_vertical_margin">16.8dp</dimen>
+	<dimen name="d_30dp">31.5dp</dimen>
+	<dimen name="d_110dp">115.6dp</dimen>
+	<dimen name="d_16dp">16.8dp</dimen>
+	<dimen name="d_14dp">14.7dp</dimen>
+	<dimen name="d_15dp">15.8dp</dimen>
+	<dimen name="d_12dp">12.6dp</dimen>
+	<dimen name="d_130dp">136.6dp</dimen>
+	<dimen name="profile_width">78.8dp</dimen>
+	<dimen name="d_125dp">131.4dp</dimen>
+	<dimen name="d_22dp">23.1dp</dimen>
+	<dimen name="d_20dp">21dp</dimen>
+	<dimen name="nav_header_vertical_spacing">16.8dp</dimen>
+	<dimen name="d_40dp">42dp</dimen>
+	<dimen name="activity_horizontal_margin">16.8dp</dimen>
+	<dimen name="d_100dp">105.1dp</dimen>
+	<dimen name="nav_header_height">168.2dp</dimen>
+	<dimen name="d_122dp">128.2dp</dimen>
+	<dimen name="profile_height">78.8dp</dimen>
+	<dimen name="d_65dp">68.3dp</dimen>
+</resources>
