@@ -9,7 +9,7 @@
 
         <item name="android:windowTranslucentStatus">true</item>
     </style>
-    
+
     <style name="AppTheme.AppBarOverlay">appTheme</style>
 
     <style name="AppTheme.PopupOverlay">toolbar</style>

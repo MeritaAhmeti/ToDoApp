@@ -1,13 +1,27 @@
 package com.fiek.todoapp;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 
 /**
@@ -25,6 +39,9 @@ public class ContactFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private static final int REQUEST_CALL = 1;
+    private EditText mEditTextNumber;
+    ListView contactslist;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -64,5 +81,55 @@ public class ContactFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_contact, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mEditTextNumber = view.findViewById(R.id.edit_text_number);
+        ImageView imageCall = view.findViewById(R.id.image_call);
+        contactslist = view.findViewById(R.id.contactslist);
+        get(contactslist);
+        imageCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall();
+            }
+        });
+    }
+
+    private void makePhoneCall() {
+        String number = mEditTextNumber.getText().toString();
+        if (number.trim().length() > 0) {
+            if (ContextCompat.checkSelfPermission(getContext(),Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+            } else {
+                String dial = "tel:" + number;
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+            }
+        } else {
+            Toast.makeText(getContext(), "Enter Phone Number", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                Toast.makeText(getContext(), "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    public void get(View v){
+        Cursor cursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
+        getActivity().startManagingCursor(cursor);
+
+        String [] from = {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone._ID};
+        int [] to = {android.R.id.text1,android.R.id.text2};
+
+        SimpleCursorAdapter simpleCursorAdapter=new SimpleCursorAdapter(getActivity().getApplicationContext(),android.R.layout.simple_expandable_list_item_2,cursor,from,to);
+        contactslist.setAdapter(simpleCursorAdapter);
+        contactslist.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+    }
 }
 
