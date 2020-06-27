@@ -8,5 +8,42 @@
     android:gravity="center"
     tools:context=".RememberCall">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarmain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/d_20dp">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_10dp"
+        android:id="@+id/et_text"
+        android:hint="Enter text.."
+        android:lines="4"
+        android:gravity="center"
+        android:background="@drawable/bg_round"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_add"
+        android:text="add"
+        android:layout_marginTop="@dimen/d_10dp"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_view"
+        android:layout_marginTop="@dimen/d_10dp"/>
 </LinearLayout>
