@@ -18,6 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
     private  SharedPreferences.Editor mEditor;
 
+
     ConstraintLayout loginbackground;
     AnimationDrawable animationDrawable;
 
@@ -47,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         loginbackground = (ConstraintLayout) findViewById(R.id.loginbackground);
         animationDrawable = (AnimationDrawable) loginbackground.getBackground();
