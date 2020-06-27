@@ -79,4 +79,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contacts_nav">Contacts</string>
+    <string name="remember_call">Remember Call</string>
+
+
 </resources>

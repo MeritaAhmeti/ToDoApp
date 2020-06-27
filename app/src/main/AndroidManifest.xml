@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SnoozingActivity"></activity>
+        <activity android:name=".RememberCall"></activity>
+        <activity android:name=".SnoozingActivity" />
 
         <receiver android:name="com.allyants.notifyme.NotificationPublisher" />
         <receiver android:name="com.allyants.notifyme.BootNotifyMe">

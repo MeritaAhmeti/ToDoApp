@@ -10,22 +10,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="@dimen/d_110dp"
         android:inputType="phone" />
     <ImageView
         android:id="@+id/image_call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_local_phone_black_80dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="@dimen/d_160dp"
+        android:layout_marginLeft="@dimen/d_80dp"
         />
+    <Button
+        android:id="@+id/rememberBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/d_160dp"
+        android:text="@string/remember_call"
+        android:padding="@dimen/d_20dp"
+        android:layout_marginLeft="@dimen/d_220dp"/>
+
     <ListView
         android:id="@+id/contactslist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image_call"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="@dimen/d_10dp"/>
 
 </RelativeLayout>
