@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.allyants.notifyme.NotifyMe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,7 +84,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                             Intent a = new Intent(EditTask.this, MainActivity.class);
                             startActivity(a);
                         } else {
-                            Toast.makeText(getApplicationContext(), "Failure!", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.rledit), "Failure!", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -111,7 +112,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(EditTask.this, "No Data", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
                     }
                 });
             }
@@ -138,7 +139,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(EditTask.this, "No Data", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
                     }
                 });
 

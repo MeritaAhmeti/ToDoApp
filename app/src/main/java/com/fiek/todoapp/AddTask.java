@@ -1,6 +1,8 @@
 package com.fiek.todoapp;
 
 import com.allyants.notifyme.NotifyMe;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.Query;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import android.content.Intent;
@@ -39,6 +41,8 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+
+
         titlepage = findViewById(R.id.titlepage);
 
         addtitle = findViewById(R.id.addtitle);
@@ -75,11 +79,11 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
         btnSaveTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // insert data to databasea
                 reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
                         child("Todo" + todoNum);
 
                 reference.addValueEventListener(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -89,12 +93,14 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                         dataSnapshot.getRef().child("keytodo").setValue(keytodo);
                         Intent a = new Intent(AddTask.this,MainActivity.class);
                         startActivity(a);
+
+
                     }
 
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(AddTask.this, "No Data", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.rl), "No Data.", Snackbar.LENGTH_LONG).show();
                     }
 
                 });
@@ -125,7 +131,8 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(AddTask.this, "No Data", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.rl), "No Data.", Snackbar.LENGTH_LONG).show();
+
                     }
 
                 });

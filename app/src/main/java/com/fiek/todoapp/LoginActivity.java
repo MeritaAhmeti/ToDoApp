@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
@@ -118,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     Toast.makeText(LoginActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

@@ -17,6 +17,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -41,6 +42,7 @@ public class ContactFragment extends Fragment {
 
     private static final int REQUEST_CALL = 1;
     private EditText mEditTextNumber;
+    private Button rememberBtn;
     ListView contactslist;
 
     public ContactFragment() {
@@ -86,12 +88,20 @@ public class ContactFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mEditTextNumber = view.findViewById(R.id.edit_text_number);
         ImageView imageCall = view.findViewById(R.id.image_call);
+        Button rememberBtn = view.findViewById(R.id.rememberBtn);
         contactslist = view.findViewById(R.id.contactslist);
         get(contactslist);
         imageCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 makePhoneCall();
+            }
+        });
+        rememberBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(getContext(), RememberCall.class);
+                startActivity(a);
             }
         });
     }
@@ -132,4 +142,3 @@ public class ContactFragment extends Fragment {
         contactslist.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 }
-
