@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,24 +30,21 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
-        myViewHolder.titletodo.setText(myTodo.get(i).getTitletodo());
-        myViewHolder.desctodo.setText(myTodo.get(i).getDesctodo());
-        myViewHolder.datetodo.setText(myTodo.get(i).getDatetodo());
-
-
-        final String getTitletodo = myTodo.get(i).getTitletodo();
-        final String getDesctodo = myTodo.get(i).getDesctodo();
-        final String getDatetodo = myTodo.get(i).getDatetodo();
-        final String getKeytodo = myTodo.get(i).getKeytodo();
+        myViewHolder.titletodo.setText(myTodo.get(i).getTitle());
+        myViewHolder.desctodo.setText(myTodo.get(i).getDesc());
+        myViewHolder.datetodo.setText(myTodo.get(i).getDate());
+        final String getTitletodo = myTodo.get(i).getTitle();
+        final String getDesctodo = myTodo.get(i).getDesc();
+        final String getDatetodo = myTodo.get(i).getDate();
+        final String getKeytodo = myTodo.get(i).getKey();
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent aa = new Intent(context,EditTask.class);
-                 aa.putExtra("titletodo", getTitletodo);
-                 aa.putExtra("desctodo", getDesctodo);
-                 aa.putExtra("datetodo", getDatetodo);
-                 aa.putExtra("keytodo", getKeytodo);
-                 context.startActivity(aa);
+                aa.putExtra("titletodo", getTitletodo);
+                aa.putExtra("desctodo", getDesctodo);
+                aa.putExtra("datetodo", getDatetodo);
+                context.startActivity(aa);
             }
         });
     }
