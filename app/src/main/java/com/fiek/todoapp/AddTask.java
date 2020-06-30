@@ -7,6 +7,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,11 +84,14 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
         );
 
 
+
         btnSaveTask.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
 
                 mDBListener = mDatabaseRef.child("ToDos").child(userId).child("MyDos").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -95,20 +99,26 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                         String uploadId = mDatabaseRef.push().getKey();
                         uploadID = uploadId;
 
+
                         final String title = titletodo.getText().toString();
                         final String date = datetodo.getText().toString();
                         final String desc = desctodo.getText().toString();
 
                         writeNewPost(userId, uploadId, title, date, desc);
+                        if (TextUtils.isEmpty(title)) {
+                            titletodo.setError("title is Required.");
+                            return;
+                        } else {
 
-                        Intent a = new Intent(AddTask.this, MainActivity.class);
-                        startActivity(a);
-                        Toast.makeText(AddTask.this, "Todo created", Toast.LENGTH_SHORT).show();
+                            Intent a = new Intent(AddTask.this, MainActivity.class);
+                            startActivity(a);
+                            Toast.makeText(AddTask.this, "Todo created", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(findViewById(R.id.rl), "No Data.", Snackbar.LENGTH_LONG).show();
                     }
                 });
             }
@@ -120,32 +130,38 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dpd.show(getSupportFragmentManager(), "Datepickerdialog");
-                final String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                final String title = titletodo.getText().toString();
+                if (TextUtils.isEmpty(title)) {
+                    titletodo.setError("title is Required.");
+                    return;
+                } else {
+                    dpd.show(getSupportFragmentManager(), "Datepickerdialog");
+                    final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-                mDBListener = mDatabaseRef.child("ToDos").child(userId).child("MyDos").addValueEventListener(new ValueEventListener() {
+                    mDBListener = mDatabaseRef.child("ToDos").child(userId).child("MyDos").addValueEventListener(new ValueEventListener() {
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        String uploadId = mDatabaseRef.push().getKey();
+                            String uploadId = mDatabaseRef.push().getKey();
 
-                        uploadID = uploadId;
+                            uploadID = uploadId;
 
-                        final String title= titletodo.getText().toString();
-                        final String date = datetodo.getText().toString();
-                        final String desc = desctodo.getText().toString();
+                            final String title = titletodo.getText().toString();
+                            final String date = datetodo.getText().toString();
+                            final String desc = desctodo.getText().toString();
 
-                        writeNewPost(userId,uploadId,title,date,desc);
+                            writeNewPost(userId, uploadId, title, date, desc);
 
-                    }
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Snackbar.make(findViewById(R.id.rl), "No Data.", Snackbar.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         });
 
@@ -197,8 +213,11 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
     private void writeNewPost(String userId,String uploadID, String title,String date,String desc) {
 
         String key = mDatabaseRef.child("ToDos").push().getKey();
+        if (TextUtils.isEmpty(title)) {
+            return;
+        }else{
         MyToDo myToDo = new MyToDo(title,date,desc,key);
         Key = key;
-        mDatabaseRef.child("ToDos").child(userId).child(key).setValue(myToDo);
+        mDatabaseRef.child("ToDos").child(userId).child(key).setValue(myToDo);}
     }
 }

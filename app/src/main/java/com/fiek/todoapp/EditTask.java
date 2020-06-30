@@ -14,6 +14,7 @@ import com.allyants.notifyme.NotifyMe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +24,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -32,6 +34,13 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
     Calendar now = Calendar.getInstance();
     TimePickerDialog tpd;
     DatePickerDialog dpd;
+
+    private ToDoAdapter mAdapter;
+    private DatabaseReference mDatabaseRef;
+    private ValueEventListener mDBListener;
+    public static String uploadID;
+    public static String Key;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,87 +74,109 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 now.get(Calendar.SECOND),
                 false
         );
-
-
         final String keykeytodo = getIntent().getStringExtra("keytodo");
-
-        reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
-                child("Todo" + keykeytodo);
-
+        final String userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NotifyMe.cancel(getApplicationContext(),"test");
-                reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                MyToDo myToDo;
+                mDatabaseRef.child("ToDos").child(userId).child(keykeytodo).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Intent a = new Intent(EditTask.this, MainActivity.class);
-                            startActivity(a);
+                        if (task.isSuccessful()){
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Toast.makeText(EditTask.this, "Task Deleted", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
-                            Snackbar.make(findViewById(R.id.rledit), "Failure!", Snackbar.LENGTH_LONG).show();
+                            Toast.makeText(EditTask.this, "Authentication Error !", Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
+
             }
         });
+
 
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NotifyMe.cancel(getApplicationContext(),"test");
                 dpd.show(getSupportFragmentManager(), "Datepickerdialog");
-                reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
-                        child("Todo" + keykeytodo);
-
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        dataSnapshot.getRef().child("titletodo").setValue(titletodo.getText().toString());
-                        dataSnapshot.getRef().child("desctodo").setValue(desctodo.getText().toString());
-                        dataSnapshot.getRef().child("datetodo").setValue(datetodo.getText().toString());
-                        dataSnapshot.getRef().child("keytodo").setValue(keykeytodo);
-                    }
-
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-
-
-        //make an event for button
-        btnSaveUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
-                        child("Todo" + keykeytodo);
-                reference.addValueEventListener(new ValueEventListener() {
+                mDBListener = mDatabaseRef.child("ToDos").child(userId).child(keykeytodo).addValueEventListener(new ValueEventListener()
+                {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().child("titletodo").setValue(titletodo.getText().toString());
-                        dataSnapshot.getRef().child("desctodo").setValue(desctodo.getText().toString());
-                        dataSnapshot.getRef().child("datetodo").setValue(datetodo.getText().toString());
-                        dataSnapshot.getRef().child("keytodo").setValue(keykeytodo);
-
-                        Intent a = new Intent(EditTask.this, MainActivity.class);
-                        startActivity(a);
+                        String uploadId = mDatabaseRef.push().getKey();
+                        uploadID = uploadId;
+                        final String title= titletodo.getText().toString();
+                        final String date = datetodo.getText().toString();
+                        final String desc = desctodo.getText().toString();
+                        final String key = keykeytodo;
+                        if(title.equals("titletodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(titletodo.getText().toString());
+                        }else if(date.equals("datetodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(datetodo.getText().toString());
+                        }else if (desc.equals("desctodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(desctodo.getText().toString());
+                        }else if (key.equals("keykeytodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(keykeytodo);
+                        }else {
+                            writeNewPost(userId, uploadId, title, date, desc);
+                        }
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
                     }
                 });
-
             }
         });
+
+        btnSaveUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDBListener = mDatabaseRef.child("ToDos").child(userId).child(keykeytodo).addValueEventListener(new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String uploadId = mDatabaseRef.push().getKey();
+                        uploadID = uploadId;
+                        final String title= titletodo.getText().toString();
+                        final String date = datetodo.getText().toString();
+                        final String desc = desctodo.getText().toString();
+                        final String key = keykeytodo;
+                        if(title.equals("titletodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(titletodo.getText().toString());
+                        }else if(date.equals("datetodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(datetodo.getText().toString());
+                        }else if (desc.equals("desctodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(desctodo.getText().toString());
+                        }else if (key.equals("keykeytodo")) {
+                            dataSnapshot.getRef().child("ToDos").child(userId).child(keykeytodo).setValue(keykeytodo);
+                        }else {
+                            writeNewPost(userId, uploadId, title, date, desc);
+                        }
+                        Intent a = new Intent(EditTask.this, MainActivity.class);
+                        startActivity(a);
+                        Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
     }
+
 
 
 
@@ -182,4 +213,13 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         startActivity(a);
 
     }
+
+    private boolean writeNewPost(String userId,String uploadID, String title,String date,String desc) {
+
+        final String key = getIntent().getStringExtra("keytodo");
+        MyToDo myToDo = new MyToDo(title,date,desc,key);
+        mDatabaseRef.child("ToDos").child(userId).child("/" + key).setValue(myToDo);
+        return true;
+    }
+
 }

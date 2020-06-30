@@ -119,6 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                                 String password = pwd;
                                 mEditor.putString(getString(R.string.password), "");
                                 mEditor.commit();
+
+                                mTextEmail.setText("");
+                                mTextPassword.setText("");
                             }
                             Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
