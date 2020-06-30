@@ -1,50 +1,57 @@
 package com.fiek.todoapp;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+
+@IgnoreExtraProperties
 public class MyToDo {
-    String titletodo;
-    String datetodo;
-    String desctodo;
-    String keytodo;
+
+    public String title;
+    public String date;
+    public String desc;
+    public String key;
+
 
     public MyToDo() {
+
     }
 
-    public MyToDo(String titletodo, String datetodo, String desctodo, String keytodo) {
-        this.titletodo = titletodo;
-        this.datetodo = datetodo;
-        this.desctodo = desctodo;
-        this.keytodo = keytodo;
+    public MyToDo(String title,String date,String desc,String key) {
+        this.title = title;
+        this.date = date;
+        this.desc = desc;
+        this.key = key;
     }
 
-    public String getKeytodo() {
-        return keytodo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setKeytodo(String keytodo) {
-        this.keytodo = keytodo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getTitletodo() {
-        return titletodo;
+    public String getDate() {
+        return date;
     }
 
-    public void setTitletodo(String titletodo) {
-        this.titletodo = titletodo;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getDatetodo() {
-        return datetodo;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDatetodo(String datetodo) {
-        this.datetodo = datetodo;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public String getDesctodo() {
-        return desctodo;
+    public String getKey() {
+        return key;
     }
 
-    public void setDesctodo(String desctodo) {
-        this.desctodo = desctodo;
+    public void setKey(String key) {
+        this.key = key;
     }
 }

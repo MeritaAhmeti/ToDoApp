@@ -2,7 +2,7 @@ package com.fiek.todoapp;
 
 import com.allyants.notifyme.NotifyMe;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.Query;
+import com.google.firebase.auth.FirebaseAuth;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -34,13 +35,20 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
     Calendar now = Calendar.getInstance();
     TimePickerDialog tpd;
     DatePickerDialog dpd;
+    private DatabaseReference mDatabaseRef;
+
+
+    private ValueEventListener mDBListener;
+    public static String uploadID;
+    public static String Key;
+    ToDoAdapter toDoAdapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-
 
 
         titlepage = findViewById(R.id.titlepage);
@@ -75,79 +83,81 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
         );
 
 
-
         btnSaveTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
-                        child("Todo" + todoNum);
+                final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-                reference.addValueEventListener(new ValueEventListener() {
-
+                mDBListener = mDatabaseRef.child("ToDos").child(userId).child("MyDos").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        String uploadId = mDatabaseRef.push().getKey();
+                        uploadID = uploadId;
 
-                        dataSnapshot.getRef().child("titletodo").setValue(titletodo.getText().toString());
-                        dataSnapshot.getRef().child("desctodo").setValue(desctodo.getText().toString());
-                        dataSnapshot.getRef().child("datetodo").setValue(datetodo.getText().toString());
-                        dataSnapshot.getRef().child("keytodo").setValue(keytodo);
-                        Intent a = new Intent(AddTask.this,MainActivity.class);
+                        final String title = titletodo.getText().toString();
+                        final String date = datetodo.getText().toString();
+                        final String desc = desctodo.getText().toString();
+
+                        writeNewPost(userId, uploadId, title, date, desc);
+
+                        Intent a = new Intent(AddTask.this, MainActivity.class);
                         startActivity(a);
-
-
+                        Toast.makeText(AddTask.this, "Todo created", Toast.LENGTH_SHORT).show();
                     }
-
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Snackbar.make(findViewById(R.id.rl), "No Data.", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
                     }
-
                 });
-
-
             }
-
-
-
         });
+
+
+
+
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dpd.show(getSupportFragmentManager(), "Datepickerdialog");
-                reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp").
-                        child("Todo" + todoNum);
+                final String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-                reference.addValueEventListener(new ValueEventListener() {
+                mDBListener = mDatabaseRef.child("ToDos").child(userId).child("MyDos").addValueEventListener(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        dataSnapshot.getRef().child("titletodo").setValue(titletodo.getText().toString());
-                        dataSnapshot.getRef().child("desctodo").setValue(desctodo.getText().toString());
-                        dataSnapshot.getRef().child("datetodo").setValue(datetodo.getText().toString());
-                        dataSnapshot.getRef().child("keytodo").setValue(keytodo);
-                    }
+                        String uploadId = mDatabaseRef.push().getKey();
 
+                        uploadID = uploadId;
+
+                        final String title= titletodo.getText().toString();
+                        final String date = datetodo.getText().toString();
+                        final String desc = desctodo.getText().toString();
+
+                        writeNewPost(userId,uploadId,title,date,desc);
+
+                    }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Snackbar.make(findViewById(R.id.rl), "No Data.", Snackbar.LENGTH_LONG).show();
-
+                        Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
                     }
-
                 });
             }
         });
+
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(AddTask.this,MainActivity.class);
+                Intent a = new Intent(AddTask.this, MainActivity.class);
                 startActivity(a);
             }
         });
 
     }
-
 
 
     @Override
@@ -156,8 +166,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
         now.set(Calendar.MONTH,monthOfYear);
         now.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         tpd.show(getSupportFragmentManager(), "Timepickerdialog");
-
-
     }
 
     @Override
@@ -183,7 +191,14 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                 .build();
         Intent a = new Intent(AddTask.this,MainActivity.class);
         startActivity(a);
+    }
 
 
+    private void writeNewPost(String userId,String uploadID, String title,String date,String desc) {
+
+        String key = mDatabaseRef.child("ToDos").push().getKey();
+        MyToDo myToDo = new MyToDo(title,date,desc,key);
+        Key = key;
+        mDatabaseRef.child("ToDos").child(userId).child(key).setValue(myToDo);
     }
 }

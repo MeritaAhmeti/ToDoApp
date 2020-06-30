@@ -2,19 +2,18 @@ package com.fiek.todoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,12 +34,16 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
+    FirebaseAuth mAuth;
+    FirebaseUser user;
     DatabaseReference reference;
     RecyclerView newtodo;
     ArrayList<MyToDo> list;
-    ToDoAdapter toDoAdapter;
-// TextView titlepage;
+    public ToDoAdapter toDoAdapter;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseRef;
+    private ValueEventListener mDBListener;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -68,6 +71,7 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,13 +84,13 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_main, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // titlepage = findViewById(R.id.titlepage);
+
         FloatingActionButton btnAddNew = view.findViewById(R.id.btnaddnew);
         btnAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,37 +99,36 @@ public class HomeFragment extends Fragment {
                 startActivity(a);
             }
         });
-        //puna e te dhenave
+        String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
         newtodo = view.findViewById(R.id.newtodo);
         newtodo.setLayoutManager(new LinearLayoutManager(getContext()));
         list = new ArrayList<MyToDo>();
 
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        newtodo.setLayoutManager(layoutManager);
 
-        //me marr te dhenat prej firebase
-        reference = FirebaseDatabase.getInstance().getReference().child("ToDoApp");
-        reference.addValueEventListener(new ValueEventListener() {
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
+        mDBListener = mDatabaseRef.child("ToDos").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //kodi per rimarrjen e te dhenave  dhe zevendesimin e layout
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    MyToDo p = dataSnapshot1.getValue(MyToDo.class);
-                    list.add(p);
-
+                    MyToDo myToDo = dataSnapshot1.getValue(MyToDo.class);
+                    list.add(myToDo);
                 }
-                toDoAdapter  = new ToDoAdapter(getActivity(), list);
+
+                toDoAdapter = new ToDoAdapter(getContext(), list);
                 newtodo.setAdapter(toDoAdapter);
                 toDoAdapter.notifyDataSetChanged();
-            }
 
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
-
             }
         });
+
     }
+
+
+
 
 }
