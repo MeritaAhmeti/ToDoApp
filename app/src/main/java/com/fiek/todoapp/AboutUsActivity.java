@@ -2,13 +2,9 @@ package com.fiek.todoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 
@@ -28,9 +24,8 @@ public class AboutUsActivity extends AppCompatActivity {
         data = (TextView)findViewById(R.id.fetcheddata);
         fetchData process = new fetchData();
         process.execute();
-
-
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -47,4 +42,3 @@ public class AboutUsActivity extends AppCompatActivity {
         }
     }
 }
-

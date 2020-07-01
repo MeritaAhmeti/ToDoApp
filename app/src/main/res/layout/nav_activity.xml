@@ -11,9 +11,7 @@
     <include
         layout="@layout/activity_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
+        android:layout_height="match_parent" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -25,15 +23,3 @@
         app:menu="@menu/activity_main_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
-
-
-
-
-
-
-
-
-

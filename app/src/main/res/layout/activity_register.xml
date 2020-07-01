@@ -14,9 +14,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            />
+            android:layout_height="match_parent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -51,6 +49,7 @@
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="17sp" />
+
             <EditText
                 android:id="@+id/edittext_cnf_password"
                 android:layout_width="match_parent"
@@ -65,7 +64,6 @@
                 android:textColorHint="@color/colorWhite"
                 android:textSize="17sp" />
 
-
         </RelativeLayout>
 
         <ImageView
@@ -75,6 +73,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:src="@drawable/ic_done_black_24dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +83,6 @@
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
             android:textSize="25sp"/>
-
 
         <Button
             android:id="@+id/button_register"
@@ -110,5 +108,4 @@
             android:background="@drawable/button_v"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,26 +1,19 @@
 package com.fiek.todoapp;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RateFragment#newInstance} factory method to
@@ -28,7 +21,6 @@ import android.widget.TextView;
  */
 public class RateFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -39,9 +31,7 @@ public class RateFragment extends Fragment {
     private String mParam2;
 
     public RateFragment() {
-        // Required empty public constructor
     }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -72,9 +62,9 @@ public class RateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_rate, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -84,17 +74,13 @@ public class RateFragment extends Fragment {
         mlaunchCount.setText(getString(R.string.app_message,
                 AppPreferences.getInstance(getContext()).getLaunchCount()));
         showRateAppDialogIfNeeded();
-
     }
-    private void showRateAppDialogIfNeeded() {
 
-//        boolean bool = AppPreferences.getInstance(getContext()).getAppRate();
+    private void showRateAppDialogIfNeeded() {
         int i = AppPreferences.getInstance(getContext()).getLaunchCount();
         if ( (i > 2)) {
             createAppRatingDialog(getString(R.string.rate_app_title), getString(R.string.rate_app_message)).show();
         }
-
-
     }
 
     private AlertDialog createAppRatingDialog(String rateAppTitle, String rateAppMessage) {
@@ -113,22 +99,13 @@ public class RateFragment extends Fragment {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 paramAnonymousDialogInterface.dismiss();
                 AppPreferences.getInstance(RateFragment.this.getContext()).resetLaunchCount();
-//
             }
         }).setMessage(rateAppMessage).setTitle(rateAppTitle).create();
-
-
-
         return dialog;
-
-
-
-
     }
 
     public static void openAppInPlayStore(RateFragment paramContext) {
         paramContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/")));
-
     }
 
     public static void openFeedback(RateFragment paramContext) {
@@ -144,15 +121,8 @@ public class RateFragment extends Fragment {
                     "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER);
             localIntent.setType("message/rfc822");
             paramContext.startActivity(Intent.createChooser(localIntent, "Choose an Email client :"));
-
-
         } catch (Exception e) {
             Log.d("OpenFeedback", e.getMessage());
         }
-
     }
-
-
-
-
 }

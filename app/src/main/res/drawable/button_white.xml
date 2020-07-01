@@ -7,7 +7,8 @@
             <stroke android:width="0.5dip" android:color="@color/colorWhite" />
             <gradient android:angle="-90.0" android:endColor="@android:color/transparent" android:startColor="@android:color/transparent" />
         </shape>
-    </item>
+            </item>
+
     <item android:state_focused="true">
         <shape android:shape="rectangle">
             <corners android:radius="25.0dip" />
@@ -15,6 +16,7 @@
             <solid android:color="@color/colorWhite" />
         </shape>
     </item>
+
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="25.0dip" />
@@ -22,4 +24,5 @@
             <solid android:color="@color/colorWhite" />
         </shape>
     </item>
+
 </selector>

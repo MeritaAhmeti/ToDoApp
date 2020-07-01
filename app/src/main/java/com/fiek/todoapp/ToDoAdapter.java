@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
-
     Context context;
     ArrayList<MyToDo> myTodo;
 
@@ -20,7 +18,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
         context = c;
         myTodo = p;
     }
-
 
     @NonNull
     @Override
@@ -44,18 +41,17 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
                 aa.putExtra("titletodo", getTitletodo);
                 aa.putExtra("desctodo", getDesctodo);
                 aa.putExtra("datetodo", getDatetodo);
+                aa.putExtra("keytodo", getKeytodo);
                 context.startActivity(aa);
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return myTodo.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
         TextView titletodo, desctodo, datetodo, keytodo;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -63,8 +59,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder>{
             titletodo = (TextView) itemView.findViewById(R.id.titletodo);
             desctodo = (TextView) itemView.findViewById(R.id.desctodo);
             datetodo = (TextView) itemView.findViewById(R.id.datetodo);
-
         }
     }
-
 }

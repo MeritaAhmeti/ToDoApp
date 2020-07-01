@@ -1,4 +1,5 @@
 package com.fiek.todoapp;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -50,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(4500);
         animationDrawable.start();
 
-
         mTextEmail = (EditText)findViewById(R.id.edittext_email);
         mTextPassword = (EditText)findViewById(R.id.edittext_password);
         mButtonLogin = (Button)findViewById(R.id.button_login);
@@ -63,33 +63,24 @@ public class LoginActivity extends AppCompatActivity {
 
         checkSharedPreferences();
 
-
-
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String email = mTextEmail.getText().toString().trim();
                 String password = mTextPassword.getText().toString().trim();
 
-
-
                 if (TextUtils.isEmpty(email)) {
                     mTextEmail.setError("Email is Required.");
                     return;
                 }
-
                 if (TextUtils.isEmpty(password)) {
                     mTextPassword.setError("Password is Required.");
                     return;
                 }
-
-
                 if (password.length() < 6) {
                     mTextPassword.setError("Password Must be >= 6 Characters");
                     return;
                 }
-
-
                 fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -97,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                             String user = mTextEmail.getText().toString().trim();
                             String pwd = mTextPassword.getText().toString().trim();
                             if (mcheckBox.isChecked()) {
-
                                 mEditor.putString(getString(R.string.checkbox), "True");
                                 mEditor.commit();
 
@@ -123,13 +113,12 @@ public class LoginActivity extends AppCompatActivity {
                                 mTextEmail.setText("");
                                 mTextPassword.setText("");
                             }
-                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         } else {
-                            Toast.makeText(LoginActivity.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 });
             }
         });
@@ -141,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void checkSharedPreferences(){
-        String checkbox = mPreferences.getString(getString(R.string.checkbox), "False");
+        String checkbox = mPreferences.getString(getString(R.string.checkbox), "False!");
         String email = mPreferences.getString(getString(R.string.email_login), "");
         String password = mPreferences.getString(getString(R.string.password), "");
 
@@ -154,6 +143,4 @@ public class LoginActivity extends AppCompatActivity {
             mcheckBox.setChecked(false);
         }
     }
-
-
 }

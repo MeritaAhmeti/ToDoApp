@@ -1,33 +1,23 @@
 package com.fiek.todoapp;
 
-import android.content.Context;
-import android.os.Bundle;
 
+import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
-import com.google.maps.android.clustering.view.DefaultClusterRenderer;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MapFragment#newInstance} factory method to
@@ -46,12 +36,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private ClusterManager<MyItem>clusterManager;
     private List<MyItem> items = new ArrayList<>();
 
-
-
     public MapFragment() {
-        // Required empty public constructor
     }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -82,9 +68,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -97,6 +83,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         ft.commit();
         mapFragment.getMapAsync(this);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map=googleMap;
@@ -106,12 +93,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         map.setOnMarkerClickListener(clusterManager);
         addItems();
         clusterManager.cluster();
-
-
-
     }
-    private void addItems() {
 
+    private void addItems() {
                 clusterManager.addItem(new MyItem(42.675487, 21.210694, "Parku i Germise", "Prishtine"));
                 clusterManager.addItem(new MyItem(42.663345, 21.164441, "Teatri", "Prishtine"));
                 clusterManager.addItem(new MyItem(42.661936, 21.161777, "KinoABC", "Prishtine"));
@@ -130,7 +114,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 clusterManager.addItem(new MyItem(42.2770685,21.5368789 , "Kitke", "Kamenice"));
                 clusterManager.addItem(new MyItem(42.5293742,21.4635289, "Vali Ranch", "Perlepnice"));
                 clusterManager.addItem(new MyItem(42.8895444,20.8605086  , "Trepça ", "Mitrovice"));
-
-
     }
 }

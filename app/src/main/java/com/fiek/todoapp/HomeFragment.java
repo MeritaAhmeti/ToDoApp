@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 
@@ -50,7 +49,6 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -106,7 +104,6 @@ public class HomeFragment extends Fragment {
 
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
         mDBListener = mDatabaseRef.child("ToDos").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -114,21 +111,14 @@ public class HomeFragment extends Fragment {
                     MyToDo myToDo = dataSnapshot1.getValue(MyToDo.class);
                     list.add(myToDo);
                 }
-
                 toDoAdapter = new ToDoAdapter(getContext(), list);
                 newtodo.setAdapter(toDoAdapter);
                 toDoAdapter.notifyDataSetChanged();
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
-
-
-
 }

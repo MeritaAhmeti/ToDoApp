@@ -3,21 +3,13 @@
 
     <item
         android:drawable="@drawable/bginputsel"
-        android:state_pressed="true"
-        />
-
+        android:state_pressed="true" />
     <item
         android:drawable="@drawable/bginputsel"
-        android:state_focused="true"
-        />
-
+        android:state_focused="true" />
     <item
         android:drawable="@drawable/bginputsel"
-        android:state_selected="true"
-        />
-
+        android:state_selected="true" />
     <item
-        android:drawable="@drawable/bginputunsel"
-        />
-
+        android:drawable="@drawable/bginputunsel" />
 </selector>

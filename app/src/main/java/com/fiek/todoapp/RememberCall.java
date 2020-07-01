@@ -1,6 +1,5 @@
 package com.fiek.todoapp;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,10 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import java.util.ArrayList;
 
 public class RememberCall extends AppCompatActivity {
@@ -41,7 +38,6 @@ public class RememberCall extends AppCompatActivity {
         listView = findViewById(R.id.list_view);
 
         databaseHelp = new DatabaseHelp(RememberCall.this);
-
         arrayList = databaseHelp.getAllText();
         arrayAdapter = new ArrayAdapter(RememberCall.this,android.R.layout.simple_list_item_1,arrayList);
 
@@ -64,19 +60,17 @@ public class RememberCall extends AppCompatActivity {
                 }
             }
         });
-
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-
                 Intent intent = new Intent(RememberCall.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

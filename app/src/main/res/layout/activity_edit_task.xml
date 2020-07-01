@@ -16,10 +16,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
-
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/linearlayoutTodoBack"
@@ -93,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/d_5dp"
                 android:background="@drawable/bginputaddtask"/>
+
             <TextView
                 android:id="@+id/adddate"
                 android:layout_below="@+id/desctodo"
@@ -124,8 +122,7 @@
                 android:layout_marginTop="@dimen/d_20dp"
                 android:background="@drawable/button_white"
                 android:text="@string/save_update_etask"
-                android:textColor="#48F3BE"
-                />
+                android:textColor="#48F3BE" />
 
             <Button
                 android:id="@+id/notify"
@@ -148,9 +145,5 @@
                 android:textColor="@color/colorWhite" />
 
         </RelativeLayout>
-
-
-
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.fiek.todoapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
@@ -10,7 +9,6 @@ public class MyItem implements ClusterItem {
     private  LatLng position;
     private String title;
     private  String snippet;
-
 
     public MyItem(LatLng position) {
         this.position = position;
@@ -21,9 +19,6 @@ public class MyItem implements ClusterItem {
         this.title = title;
         this.snippet = snippet;
     }
-
-
-
 
     @NonNull
     @Override
@@ -46,6 +41,3 @@ public class MyItem implements ClusterItem {
         return snippet;
     }
 }
-
-
-

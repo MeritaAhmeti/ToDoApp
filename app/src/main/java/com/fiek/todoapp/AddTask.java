@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +43,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
     ToDoAdapter toDoAdapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +50,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
 
 
         titlepage = findViewById(R.id.titlepage);
-
         addtitle = findViewById(R.id.addtitle);
         adddesc = findViewById(R.id.adddesc);
         adddate = findViewById(R.id.adddate);
@@ -74,7 +70,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                 now.get(Calendar.DAY_OF_MONTH)
 
         );
-
         tpd = TimePickerDialog.newInstance(
                 AddTask.this,
                 now.get(Calendar.HOUR_OF_DAY),
@@ -83,15 +78,11 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                 false
         );
 
-
-
         btnSaveTask.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
 
                 mDBListener = mDatabaseRef.child("ToDos").child(userId).child("MyDos").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -99,17 +90,15 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                         String uploadId = mDatabaseRef.push().getKey();
                         uploadID = uploadId;
 
-
                         final String title = titletodo.getText().toString();
                         final String date = datetodo.getText().toString();
                         final String desc = desctodo.getText().toString();
 
                         writeNewPost(userId, uploadId, title, date, desc);
                         if (TextUtils.isEmpty(title)) {
-                            titletodo.setError("title is Required.");
+                            titletodo.setError("Title is Required!");
                             return;
                         } else {
-
                             Intent a = new Intent(AddTask.this, MainActivity.class);
                             startActivity(a);
                             Toast.makeText(AddTask.this, "Todo created", Toast.LENGTH_SHORT).show();
@@ -124,15 +113,12 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
             }
         });
 
-
-
-
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String title = titletodo.getText().toString();
                 if (TextUtils.isEmpty(title)) {
-                    titletodo.setError("title is Required.");
+                    titletodo.setError("Title is Required!");
                     return;
                 } else {
                     dpd.show(getSupportFragmentManager(), "Datepickerdialog");
@@ -143,7 +129,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
 
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-
                             String uploadId = mDatabaseRef.push().getKey();
 
                             uploadID = uploadId;
@@ -153,7 +138,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                             final String desc = desctodo.getText().toString();
 
                             writeNewPost(userId, uploadId, title, date, desc);
-
                         }
 
                         @Override
@@ -172,7 +156,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
                 startActivity(a);
             }
         });
-
     }
 
 
@@ -208,7 +191,6 @@ public class AddTask extends AppCompatActivity  implements DatePickerDialog.OnDa
         Intent a = new Intent(AddTask.this,MainActivity.class);
         startActivity(a);
     }
-
 
     private void writeNewPost(String userId,String uploadID, String title,String date,String desc) {
 

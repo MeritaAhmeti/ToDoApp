@@ -2,14 +2,12 @@ package com.fiek.todoapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.allyants.notifyme.NotifyMe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,9 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-
 import java.util.Calendar;
-import java.util.HashMap;
+
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -64,9 +61,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
-
         );
-
         tpd = TimePickerDialog.newInstance(
                 EditTask.this,
                 now.get(Calendar.HOUR_OF_DAY),
@@ -74,6 +69,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 now.get(Calendar.SECOND),
                 false
         );
+
         final String keykeytodo = getIntent().getStringExtra("keytodo");
         final String userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -81,22 +77,20 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                NotifyMe.cancel(getApplicationContext(),"test");
                 MyToDo myToDo;
                 mDatabaseRef.child("ToDos").child(userId).child(keykeytodo).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            Toast.makeText(EditTask.this, "Task Deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTask.this, "Task Deleted!", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                            Toast.makeText(EditTask.this, "Authentication Error !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTask.this, "Authentication Error!", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
-
             }
         });
 
@@ -104,13 +98,16 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NotifyMe.cancel(getApplicationContext(),"test");
                 dpd.show(getSupportFragmentManager(), "Datepickerdialog");
                 mDBListener = mDatabaseRef.child("ToDos").child(userId).child(keykeytodo).addValueEventListener(new ValueEventListener()
                 {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String uploadId = mDatabaseRef.push().getKey();
+
                         uploadID = uploadId;
+
                         final String title= titletodo.getText().toString();
                         final String date = datetodo.getText().toString();
                         final String desc = desctodo.getText().toString();
@@ -126,10 +123,8 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                         }else {
                             writeNewPost(userId, uploadId, title, date, desc);
                         }
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                        finish();
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Snackbar.make(findViewById(R.id.rledit), "No Data.", Snackbar.LENGTH_LONG).show();
@@ -174,11 +169,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 });
             }
         });
-
     }
-
-
-
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
@@ -187,7 +178,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         now.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         tpd.show(getSupportFragmentManager(), "Timepickerdialog");
     }
-
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
         now.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -211,15 +201,12 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 .build();
         Intent a = new Intent(EditTask.this, MainActivity.class);
         startActivity(a);
-
     }
 
     private boolean writeNewPost(String userId,String uploadID, String title,String date,String desc) {
-
         final String key = getIntent().getStringExtra("keytodo");
         MyToDo myToDo = new MyToDo(title,date,desc,key);
         mDatabaseRef.child("ToDos").child(userId).child("/" + key).setValue(myToDo);
         return true;
     }
-
 }

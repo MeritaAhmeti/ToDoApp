@@ -12,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/d_110dp"
         android:inputType="phone" />
+
     <ImageView
         android:id="@+id/image_call"
         android:layout_width="wrap_content"
@@ -20,8 +21,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/d_160dp"
-        android:layout_marginLeft="@dimen/d_80dp"
-        />
+        android:layout_marginLeft="@dimen/d_80dp" />
+
     <Button
         android:id="@+id/rememberBtn"
         android:layout_width="wrap_content"

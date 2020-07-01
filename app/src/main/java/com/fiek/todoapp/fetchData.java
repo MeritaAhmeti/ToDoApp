@@ -1,11 +1,9 @@
 package com.fiek.todoapp;
 
 import android.os.AsyncTask;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +36,6 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                                    JO.get("usage") + "\n" ;
 
                 dataParsed = dataParsed + singleParsed;
-
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

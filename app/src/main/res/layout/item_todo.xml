@@ -5,8 +5,7 @@
     android:background="@drawable/bgitemtodo"
     android:orientation="horizontal"
     android:layout_marginBottom="@dimen/d_20dp"
-    android:layout_height="@dimen/d_100dp"
-     >
+    android:layout_height="@dimen/d_100dp">
 
     <LinearLayout
         android:layout_marginLeft="@dimen/d_16dp"

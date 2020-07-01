@@ -2,18 +2,14 @@ package com.fiek.todoapp;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-
 @IgnoreExtraProperties
 public class MyToDo {
-
     public String title;
     public String date;
     public String desc;
     public String key;
 
-
     public MyToDo() {
-
     }
 
     public MyToDo(String title,String date,String desc,String key) {

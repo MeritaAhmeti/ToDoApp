@@ -9,6 +9,7 @@
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     tools:context=".MainActivity">
+
     <ImageView
         android:id="@+id/img_header_bg"
         android:layout_width="match_parent"
