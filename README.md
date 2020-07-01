@@ -18,14 +18,14 @@ We have implemented firebase email authentication system, user can create new ac
 
 ## Add and Edit tasks
 
-Users can create a task, add and edit details. If you click **NOTIFY** you can also add a date and time to your task, you'll get mobile notifications at the scheduled dates and times.
+User can create a task, add and edit details. If you click **NOTIFY** you can also add a date and time to your task, you'll get mobile notifications at the scheduled dates and times.
 
 <img src="https://user-images.githubusercontent.com/44531649/86196394-75210780-bb53-11ea-8f8a-3c8c7b693980.png" />
 
 ## Rate this app and Contacts
 
-* Users can rate this app in play store and send via email
-* Users can make a call from the app
+* At **Rate this app** user can rate the app in play store(if it's published) and send feedback via email.
+* At **Contacts** users can make calls from the app, to make it easier for them they will have their contacts list from phone arranged here.
 
 <img src="https://user-images.githubusercontent.com/44531649/86198362-c16e4680-bb57-11ea-8dbe-94b5382af399.png" />
 
